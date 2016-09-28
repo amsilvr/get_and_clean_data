@@ -19,15 +19,11 @@
   download.file(url = fileUrl, destfile = temp)
   date_Downloaded <- date()
 
-
-
-
 ## 1) Place each file into a dataframe; add columns for activity labels and directory structure
 
   #get filenames and paths
   df_Names <- unzip(temp, list = FALSE, exdir = "data")
-  
-  
+
   #get activity and variable names
   activity_labels <- read.table(df_Names[1], header = FALSE, col.names = c("activityID", "label"))
   
@@ -71,8 +67,10 @@
          by.subj <- arrange(df.f, subj, activity) %>%
                  group_by(subj, activity) %>%
                  summarize_all(mean)
-         
-         by.act <- arrange(df.f, activity, subj) %>%
-                 group_by(activity) %>%
-                 summarize_all(mean)
+ 
+         write.table(by.subj, file = "data/by_subj.txt", row.name = FALSE)
+        
+         # by.act <- arrange(df.f, activity, subj) %>%
+         #         group_by(activity) %>%
+         #         summarize_all(mean)
 
