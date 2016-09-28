@@ -67,6 +67,9 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 
+# Data directory
+/data/*
+
 #################
 ## Visual Studio
 #################
@@ -252,3 +255,4 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+.Rproj.user

@@ -1,51 +1,48 @@
-# get_and_clean_data
-Final Assignment on Wearable Data for JHU Coursera Course
+#Getting and Cleaning Data
+## Week 4 Assignment
 
-# Instructions
+### Final Assignment on Wearable Data for JHU Coursera Course
 
-The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set.
+(run_analysis.R) does the following:
 
-##Review criteria:
- * The submitted data set is tidy.
- 
- * The Github repo contains the required scripts.
- 
- * GitHub contains a code book that modifies and updates the available codebooks with the data to indicate all the variables and summaries calculated, along with units, and any other relevant information.
- 
- * The README that explains the analysis files is clear and understandable.
- 
- * The work submitted for this project is the work of the student who submitted it.
- 
+1. Merges the training and the test sets to create one data set. This is the biggest task and takes several steps
 
-# Getting and Cleaning Data Course Project
-The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set. The goal is to prepare tidy data that can be used for later analysis. You will be graded by your peers on a series of yes/no questions related to the project. You will be required to submit: 
+        (@) Load the filenames and paths into a list:
+        
+        `df_Names <- unzip(temp, list = FALSE, exdir = "data")`
+        
+        (@) Load the activity and variable (column) names into their own variables. While we're at it, let's tidy up the column names by making them lowercase and removing non-letter characters:
+        
+        `activity_labels <- read.table(df_Names[1], header = FALSE, col.names = c("activityID", "label"))`
+        `colNames <- select(read.table(df_Names[2]), names = 2) %>% `
+        `mutate(names = tolower(names))  %>%`
+        `  mutate(names = trimws(gsub("[^a-z]","",names)))`
+  
+		(@) Next, we get test subjects, data, and activities from separate .txt files and place them into data frames. Note that we can pick up the table from the list of filenames we generated while unzipping the downloaded data. Because we will want to group by subject and activity type further down, we have to make sure that subjects and activities are loaded as factors. We use the cleaned up column names when we read in the data.
+  
+	  `testSubj <- read.table(df_Names[14], header = FALSE, colClasses = "factor")`
+	  `test <- read.table(df_Names[15], header = FALSE, col.names = colNames$names)`
+	  `testAct <- read.table(df_Names[16], header = FALSE, colClasses = "factor")`
 
- 1. a tidy data set as described below,
- 
- 1. a link to a Github repository with your script for performing the analysis, and 
- 
- 1. a code book that describes the variables, the data, and any transformations or work that you performed to clean up the data called CodeBook.md. 
- 
-        1. You should also include a README.md in the repo with your scripts. This repo explains how all of the scripts work and how they are connected.
-   
+  (@) We load a similar set of variables for training subjects, data, and activities. 
+  
+  `trainSubj <- read.table(df_Names[26], header = FALSE, colClasses = "factor")`
+  `train <- read.table(df_Names[27], header = FALSE, col.names = colNames$names)`
+  `trainAct <- read.table(df_Names[28], header = FALSE, colClasses = "factor")`
+  
+  (@) To make sure we know if a given row is from training or test, we add a column for the data set. We pull in the subject as a factor and activityID from the variables created above. the `subj` field in both data frames is coerced to 30 levels so that they will merge properly.
+  
+   `train <- mutate(train, subj = factor(trainSubj$V1, levels = c(1:30)), dataSet = "train", activityID = trainAct[,1])`
+  `test <- mutate(test, subj = factor(testSubj$V1, levels = c(1:30)), dataSet = "test", activityID = testAct[,1])`
+  
+	(@) Finally we can combine the training and test data frames into one.
+  `df <- bind_rows(train, test) `
 
-One of the most exciting areas in all of data science right now is wearable computing - see for example [this article](http://www.insideactivitytracking.com/data-science-activity-tracking-and-the-battle-for-the-worlds-top-sports-brand/). Companies like Fitbit, Nike, and Jawbone Up are racing to develop the most advanced algorithms to attract new users. The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:
+1. Extracts only the measurements on the mean and standard deviation for each measurement.
 
-> http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+1. Uses descriptive activity names to name the activities in the data set
 
-Here are the data for the project:
-
-> https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
-
-You should create one R script called run_analysis.R that does the following.
-
-- Merges the training and the test sets to create one data set.
-
-- Extracts only the measurements on the mean and standard deviation for each measurement.
-
-- Uses descriptive activity names to name the activities in the data set
-
-- Appropriately labels the data set with descriptive variable names.
+1. Appropriately labels the data set with descriptive variable names.
 
 - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
