@@ -55,6 +55,7 @@ local.properties
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
+*.html
 
 # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
 .httr-oauth
@@ -66,6 +67,9 @@ vignettes/*.pdf
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
+
+# Data directory
+/data/
 
 #################
 ## Visual Studio
@@ -252,3 +256,5 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+.Rproj.user
+.Rproj.user/E1E167E8/sdb/prop/INDEX
