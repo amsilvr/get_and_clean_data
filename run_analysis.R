@@ -1,7 +1,7 @@
 ##################
 ## Dependencies ##
 ##################
- install.packages("tidyverse")    
+# install.packages("tidyverse")    
 
  require(tidyverse)
 
@@ -16,7 +16,7 @@
    fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
    temp <- "data/temp.zip"
 
-#  download.file(url = fileUrl, destfile = temp)
+  download.file(url = fileUrl, destfile = temp)
   date_Downloaded <- date()
 
 
