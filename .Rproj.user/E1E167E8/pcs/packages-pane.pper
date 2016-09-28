@@ -1,7 +1,0 @@
-{
-    "installOptions" : {
-        "installDependencies" : true,
-        "installFromRepository" : true,
-        "libraryPath" : "\\\\files/user files/amsilverman/R/win-library/3.3"
-    }
-}
