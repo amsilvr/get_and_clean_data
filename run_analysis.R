@@ -2,7 +2,10 @@
 ## Dependencies ##
 ##################
  install.packages("tidyverse")    
-
+ # replace the xxx and remove the comment in the below line to set the working directory to your wd
+ 
+ #setwd(xxx)
+ 
  require(tidyverse)
 
  if (!file.exists("data")) {
@@ -16,8 +19,10 @@
    fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
    temp <- "data/temp.zip"
 
+if(!file.exists(temp)) {
   download.file(url = fileUrl, destfile = temp)
   date_Downloaded <- date()
+  }
 
 ## 1) Place each file into a dataframe; add columns for activity labels and directory structure
 
