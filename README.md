@@ -1,9 +1,3 @@
----
-output: 
-  html_document: 
-    highlight: monochrome
-    smart: no
----
 #Getting and Cleaning Data
 
 ## Week 4 Assignment
