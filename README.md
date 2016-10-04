@@ -1,9 +1,3 @@
----
-output: 
-  html_document: 
-    highlight: monochrome
-    smart: no
----
 #Getting and Cleaning Data
 ## Week 4 Assignment
 
@@ -61,7 +55,7 @@ output:
 
 5. Finally, we use the following code to create a second, independent tidy data set with the average of each variable for each activity and each subject.
 ```r
-                  by.subj <- arrange(df.f, subj, activity) %>%
-                         group_by(subj, activity) %>%
-                         summarize_all(mean)
+  by.subj <- arrange(df.f, subj, activity) %>%
+         group_by(subj, activity) %>%
+         summarize_all(mean)
 ```
